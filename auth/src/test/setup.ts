@@ -1,6 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import request from 'supertest';
+import { servicesVersion } from 'typescript';
 import { app } from '../app';
 
 declare global {
@@ -32,6 +33,7 @@ afterAll(async () => {
     await mongo.stop();
   }
   await mongoose.connection.close();
+  await new Promise<void>((resolve) => setTimeout(() => resolve(), 500));
 });
 
 global.signin = async () => {
